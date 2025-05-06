@@ -32,9 +32,11 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     if scheme_symbolp(first) and first in scheme_forms.SPECIAL_FORMS:
         return scheme_forms.SPECIAL_FORMS[first](rest, env)
     else:
-        # BEGIN PROBLEM 3
-        "*** YOUR CODE HERE ***"
-        # END PROBLEM 3
+# ================================================== BEGIN PROBLEM 3 ==================================================
+        proc = scheme_eval(first) # Evaluating the operator which should be a procedure
+        args = rest.map(lambda operand: scheme_eval(operand, env)) # Returns a Pair object representing a scheme list of the operands
+        return scheme_apply(proc, args, env)
+# ================================================== BEGIN PROBLEM 3 ==================================================
 
 def scheme_apply(procedure, args, env):
     """Apply Scheme PROCEDURE to argument values ARGS (a Scheme list) in
@@ -42,14 +44,25 @@ def scheme_apply(procedure, args, env):
     validate_procedure(procedure)
     if not isinstance(env, Frame):
        assert False, "Not a Frame: {}".format(env)
+
+
+ # ================================================== BEGIN PROBLEM 2 ==================================================
     if isinstance(procedure, BuiltinProcedure):
-        # BEGIN PROBLEM 2
-        "*** YOUR CODE HERE ***"
-        # END PROBLEM 2
+       
+        python_args = []
+        while args is not nil:
+            python_args.append(args.frst)
+            args = args.rest
+        
+        if procedure.need_env:
+            python_args.append(env)
+
         try:
-            # BEGIN PROBLEM 2
-            "*** YOUR CODE HERE ***"
-            # END PROBLEM 2
+            return procedure.py_func(*python_args)
+            
+# ================================================== BEGIN PROBLEM 2 ==================================================
+
+
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
     elif isinstance(procedure, LambdaProcedure):
