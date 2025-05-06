@@ -57,9 +57,9 @@ def do_quote_form(expressions, env):
     Pair('+', Pair('x', Pair(2, nil)))
     """
     validate_form(expressions, 1, 1)
-    # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 5
+# ================================================== BEGIN PROBLEM 5 ==================================================
+    return expressions
+# ================================================== BEGIN PROBLEM 5 ==================================================
 
 def do_begin_form(expressions, env):
     """Evaluate a begin form.
