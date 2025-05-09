@@ -33,7 +33,7 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
         return scheme_forms.SPECIAL_FORMS[first](rest, env)
     else:
 # ================================================== BEGIN PROBLEM 3 ==================================================
-        proc = scheme_eval(first) # Evaluating the operator which should be a procedure
+        proc = scheme_eval(first, env) # Evaluating the operator which should be a procedure
         args = rest.map(lambda operand: scheme_eval(operand, env)) # Returns a Pair object representing a scheme list of the operands
         return scheme_apply(proc, args, env)
 # ================================================== BEGIN PROBLEM 3 ==================================================
@@ -51,7 +51,7 @@ def scheme_apply(procedure, args, env):
        
         python_args = []
         while args is not nil:
-            python_args.append(args.frst)
+            python_args.append(args.first)
             args = args.rest
         
         if procedure.need_env:
