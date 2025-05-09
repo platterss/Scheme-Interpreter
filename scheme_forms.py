@@ -39,7 +39,7 @@ def do_define_form(expressions, env):
         val_to_bind = scheme_eval(expressions.rest.first, env) # First evaluate the expression that we will bind the symbol to
         env.define(signature, val_to_bind) # Binds the evaluated value to the signature which is the symbol
         return signature
-# ================================================== BEGIN PROBLEM 4 ==================================================
+# ================================================== END PROBLEM 4 ==================================================
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
@@ -59,7 +59,7 @@ def do_quote_form(expressions, env):
     validate_form(expressions, 1, 1)
 # ================================================== BEGIN PROBLEM 5 ==================================================
     return expressions.first
-# ================================================== BEGIN PROBLEM 5 ==================================================
+# ================================================== END PROBLEM 5 ==================================================
 
 def do_begin_form(expressions, env):
     """Evaluate a begin form.
