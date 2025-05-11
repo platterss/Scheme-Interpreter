@@ -126,14 +126,6 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
-    if expressions.first is nil:
-        return True
-    while expressions.rest is not nil:
-        result = scheme_eval(expressions.first, env)
-        if is_scheme_true(result):
-            return result
-        expressions = expressions.rest
-    return scheme_eval(expressions.first, env)
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
@@ -152,12 +144,6 @@ def do_or_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
-    while expressions.rest is not nil:
-        result = scheme_eval(expressions.first, env)
-        if is_scheme_true(result):
-            return result
-        expressions = expressions.rest
-    return False
     # END PROBLEM 12
 
 def do_cond_form(expressions, env):
@@ -178,11 +164,6 @@ def do_cond_form(expressions, env):
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
             "*** YOUR CODE HERE ***"
-            if clause.rest is nil:
-                return test
-            else:
-                return eval_all(clause.rest, env)
-        expressions = expressions.rest
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -207,12 +188,6 @@ def make_let_frame(bindings, env):
     names = vals = nil
     # BEGIN PROBLEM 14
     "*** YOUR CODE HERE ***"
-    for bind in reversed(bindings.tolist()):
-        validate_form(bind, 2, 2)
-        name, expr = bind.first, bind.rest.first
-        validate_type(expr, scheme_symbolp, 0, 'let')
-        names = Pair(name, names)
-        vals = Pair(scheme_eval(expr, env), vals)
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 
@@ -255,8 +230,6 @@ def do_mu_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 11
     "*** YOUR CODE HERE ***"
-    body = expressions.rest
-    return MuProcedure(formals, body)
     # END PROBLEM 11
 
 
