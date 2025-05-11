@@ -32,7 +32,7 @@ class Frame:
         if symbol in self.bindings.keys():
             return self.bindings[symbol]
         elif symbol not in self.bindings.keys() and self.parent:
-            self.parent.lookup(symbol)
+            return self.parent.lookup(symbol)
         else:
             raise SchemeError('unknown identifier: {0}'.format(symbol))
 
