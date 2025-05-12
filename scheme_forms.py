@@ -126,6 +126,22 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return True
+
+    current_node = expressions
+    while current_node is not nil:
+        value = scheme_eval(current_node.first, env)
+
+        if current_node.rest is nil:
+            return value
+
+        if not is_scheme_true(value):
+            return value
+
+        current_node = current_node.rest
+
+    raise SchemeError("and form error")
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
@@ -144,6 +160,15 @@ def do_or_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return False
+    current_node = expressions
+    while current_node is not nil:
+        value = scheme_eval(current_node.first, env)
+        if is_scheme_true(value):
+            return value
+        current_node = current_node.rest
+    return False
     # END PROBLEM 12
 
 def do_cond_form(expressions, env):
@@ -164,6 +189,11 @@ def do_cond_form(expressions, env):
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
             "*** YOUR CODE HERE ***"
+            actions = clause.rest
+            if actions is nil:
+                return test
+            else:
+                return eval_all(actions, env)
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -188,6 +218,12 @@ def make_let_frame(bindings, env):
     names = vals = nil
     # BEGIN PROBLEM 14
     "*** YOUR CODE HERE ***"
+    while bindings is not nil:
+        binding = bindings.first
+        validate_form(binding, 2, 2)
+        names = Pair(binding.first, names)
+        vals = Pair(scheme_eval(binding.rest.first, env), vals)
+        bindings = bindings.rest
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 
@@ -229,8 +265,8 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 11
-    body = expressions.rest
-    return MuProcedure(formals, body)
+    "*** YOUR CODE HERE ***"
+    return MuProcedure(formals, expressions.rest)
     # END PROBLEM 11
 
 
